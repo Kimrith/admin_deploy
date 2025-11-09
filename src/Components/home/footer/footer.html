@@ -1,0 +1,114 @@
+<footer class="bg-gray-800 text-gray-300 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <!-- Brand / About -->
+      <div>
+        <h2 class="text-2xl font-bold text-white mb-4">Admin Dashboard</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Manage your products, users, and settings easily with our powerful admin system.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-white font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              routerLink="/"
+              routerLinkActive="text-blue-400"
+              class="hover:text-blue-400 transition-colors duration-200 block"
+              aria-label="Go to Home"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              routerLinkActive="text-blue-400"
+              class="hover:text-blue-400 transition-colors duration-200 block"
+              aria-label="View all products"
+            >
+              All Products
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/users"
+              routerLinkActive="text-blue-400"
+              class="hover:text-blue-400 transition-colors duration-200 block"
+              aria-label="Manage users"
+            >
+              Users
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/settings"
+              routerLinkActive="text-blue-400"
+              class="hover:text-blue-400 transition-colors duration-200 block"
+              aria-label="Access settings"
+            >
+              Settings
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div>
+        <h3 class="text-white font-semibold mb-3">Follow Us</h3>
+        <div class="flex space-x-4">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="hover:text-blue-400 transition-colors duration-200"
+          >
+            <span class="sr-only">Facebook</span>
+            <i class="fab fa-facebook-f text-2xl"></i>
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            class="hover:text-blue-400 transition-colors duration-200"
+          >
+            <span class="sr-only">Twitter</span>
+            <i class="fab fa-twitter text-2xl"></i>
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="hover:text-blue-400 transition-colors duration-200"
+          >
+            <span class="sr-only">Instagram</span>
+            <i class="fab fa-instagram text-2xl"></i>
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="hover:text-blue-400 transition-colors duration-200"
+          >
+            <span class="sr-only">LinkedIn</span>
+            <i class="fab fa-linkedin-in text-2xl"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-gray-700">
+    <div class="text-center text-sm text-gray-500">
+      &copy; {{ currentYear }} Admin Dashboard. All rights reserved.
+    </div>
+  </div>
+</footer>

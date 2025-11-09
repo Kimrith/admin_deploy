@@ -1,0 +1,275 @@
+<!-- app.component.html -->
+<div class="flex min-h-screen">
+  <!-- Desktop Sidebar (hidden on mobile) -->
+  <aside
+    class="hidden md:flex md:flex-col md:w-64 bg-gray-800 text-white"
+    [ngClass]="{ 'md:translate-x-0': true }"
+  >
+    <div class="p-6 text-2xl font-bold border-b border-gray-700">Admin Panel</div>
+    <nav class="mt-4 px-6 flex-1">
+      <ul class="space-y-2">
+        <li routerLink="/home" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          🏠 Home
+        </li>
+        <li routerLink="/product" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          📦 All Products <span class="text-gray-400">Category</span>
+        </li>
+        <li routerLink="postProduct" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          ➕ Post Product <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          routerLink="updateProduct"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          ✏️ Update Product <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          routerLink="removeProduct"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          🗑️ Remove Product <span class="text-gray-400">Category</span>
+        </li>
+        <li routerLink="setting" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          ⚙️ Settings
+        </li>
+        <li routerLink="user" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          👤 User
+        </li>
+        <li routerLink="order" class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer">
+          📦 Pending Orders
+        </li>
+        <div
+          routerLink="login"
+          class="p-3 border-t border-gray-700 hover:bg-gray-700 cursor-pointer mt-auto"
+        >
+          🔒 Logout
+        </div>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Mobile Sidebar (overlay) -->
+  <div
+    class="md:hidden fixed inset-0 z-30 bg-opacity-50 transition-opacity"
+    [class.hidden]="!sidebarOpen"
+    (click)="sidebarOpen = false"
+  ></div>
+
+  <aside
+    class="md:hidden fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-40 transform transition-transform duration-300 ease-in-out"
+    [ngClass]="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen }"
+  >
+    <div class="p-6 text-2xl font-bold border-b border-gray-700 flex justify-between items-center">
+      Admin Panel
+      <button (click)="sidebarOpen = false" class="text-white">✕</button>
+    </div>
+    <nav class="mt-4 px-6">
+      <ul class="space-y-2">
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="/home"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          🏠 Home
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="/product"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          📦 All Products <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="postProduct"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          ➕ Post Product <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="updateProduct"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          ✏️ Update Product <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="removeProduct"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          🗑️ Remove Product <span class="text-gray-400">Category</span>
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="setting"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          ⚙️ Settings
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="user"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          👤 User
+        </li>
+        <li
+          (click)="sidebarOpen = false"
+          routerLink="order"
+          class="hover:bg-gray-700 rounded-md px-3 py-2 cursor-pointer"
+        >
+          📦 Pending Orders
+        </li>
+        <div
+          (click)="sidebarOpen = false"
+          routerLink="login"
+          class="p-3 border-t border-gray-700 hover:bg-gray-700 cursor-pointer mt-auto"
+        >
+          🔒 Logout
+        </div>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed w-full bg-gray-800 text-white p-4 flex">
+      <button (click)="sidebarOpen = true" class="text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+      <div class="text-xl font-bold ml-6">Admin Panel</div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="flex-1 bg-gray-100 p-4 md:p-6 overflow-auto mt-14">
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <header class="border-b pb-4 mb-6">
+          <h2 class="text-2xl md:text-3xl font-semibold text-gray-800">Admin Dashboard</h2>
+          <p class="text-gray-500">Welcome back, Admin!</p>
+        </header>
+
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
+          <div class="bg-blue-500 text-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium">Total Category</h3>
+            <p class="text-2xl font-bold mt-2">{{ Count_Categories }}</p>
+          </div>
+          <div class="bg-green-500 text-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium">Total Product</h3>
+            <p class="text-2xl font-bold mt-2">56</p>
+          </div>
+          <div class="bg-teal-500 text-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium">Total User</h3>
+            <p class="text-2xl font-bold mt-2">56</p>
+          </div>
+          <div class="bg-yellow-500 text-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium">Pending Orders</h3>
+            <p class="text-2xl font-bold mt-2">14</p>
+          </div>
+        </section>
+
+        <!-- Search Input -->
+        <div class="relative max-w-md mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2"> Search: </label>
+          <div class="relative">
+            <!-- Search Icon -->
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg
+                class="h-5 w-5 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+
+            <!-- Input Field -->
+            <input
+              type="text"
+              [(ngModel)]="searchQuery"
+              (ngModelChange)="onSearchChange()"
+              placeholder="Search product..."
+              class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-800 placeholder-gray-500 focus:outline-none"
+            />
+
+            <!-- Clear Button -->
+            <button
+              *ngIf="searchQuery"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+              type="button"
+              (click)="clearSearch()"
+            >
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Display Products -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div *ngFor="let product of filteredProducts" class="bg-white rounded-lg shadow p-4">
+            <img
+              [src]="product.img.trim()"
+              [alt]="product.name_product"
+              class="w-full h-48 object-cover rounded-md mb-3"
+              (error)="onImageError($event)"
+            />
+
+            <h2 class="text-lg font-semibold">{{ product.name_product }}</h2>
+            <p class="text-gray-500 text-sm mb-2">{{ product.dis }}</p>
+
+            <div class="flex justify-between items-center">
+              <p class="text-green-600 font-bold text-lg">
+                ${{ product.price }}
+                <span *ngIf="product.discount">(-{{ product.discount }}%)</span>
+              </p>
+              <p class="text-gray-400 text-sm">Stock: {{ product.stock }}</p>
+            </div>
+
+            <div class="flex gap-3 mt-3">
+              <button
+                (click)="editProduct(product)"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md shadow transition duration-200"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                (click)="deleteProduct(product)"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow transition duration-200"
+              >
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="filteredProducts.length === 0 && !isLoading" class="text-gray-500 text-center">
+          No products found
+        </div>
+
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
