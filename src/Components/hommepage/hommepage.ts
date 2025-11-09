@@ -7,105 +7,48 @@ declare const Chart: any;
 @Component({
   selector: 'app-home',
   template: `
-    <div class="dashboard-container">
-      <h2 class="dashboard-title">📊 Admin Dashboard</h2>
+    <div class="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">📊 Admin Dashboard</h2>
 
-      <div class="summary-cards">
-        <div class="card">
-          <h3>Total Users</h3>
-          <p>{{ totalUsers }}</p>
-        </div>
-        <div class="card">
-          <h3>Total Categories</h3>
-          <p>{{ totalCategories }}</p>
-        </div>
-        <div class="card">
-          <h3>Total Products</h3>
-          <p>{{ totalProducts }}</p>
+      <!-- Summary Cards -->
+      <div class="flex justify-center w-full mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl px-2">
+          <div
+            class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow"
+          >
+            <h3 class="text-gray-600 font-medium mb-1">Total Users</h3>
+            <p class="text-3xl font-bold text-blue-600">{{ totalUsers }}</p>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow"
+          >
+            <h3 class="text-gray-600 font-medium mb-1">Total Categories</h3>
+            <p class="text-3xl font-bold text-orange-500">{{ totalCategories }}</p>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow"
+          >
+            <h3 class="text-gray-600 font-medium mb-1">Total Products</h3>
+            <p class="text-3xl font-bold text-emerald-500">{{ totalProducts }}</p>
+          </div>
         </div>
       </div>
 
-      <div class="charts-grid">
-        <div class="chart-card">
-          <canvas #userChartCanvas></canvas>
+      <!-- Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
+          <canvas #userChartCanvas class="flex-1 w-full"></canvas>
         </div>
-        <div class="chart-card">
-          <canvas #categoryChartCanvas></canvas>
+        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
+          <canvas #categoryChartCanvas class="flex-1 w-full"></canvas>
         </div>
-        <div class="chart-card">
-          <canvas #productChartCanvas></canvas>
+        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
+          <canvas #productChartCanvas class="flex-1 w-full"></canvas>
         </div>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .dashboard-container {
-        padding: 30px;
-        background-color: #f9fafb;
-        min-height: 100vh;
-        font-family: 'Inter', sans-serif;
-      }
-
-      .dashboard-title {
-        text-align: center;
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 30px;
-        color: #1e293b;
-      }
-
-      .summary-cards {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-      }
-
-      .card {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        width: 200px;
-        padding: 20px;
-        text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-      }
-
-      .card h3 {
-        font-size: 16px;
-        color: #64748b;
-        margin-bottom: 10px;
-      }
-
-      .card p {
-        font-size: 28px;
-        font-weight: bold;
-        color: #2563eb;
-        margin: 0;
-      }
-
-      .charts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 30px;
-      }
-
-      .chart-card {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        height: 400px;
-      }
-    `,
-  ],
 })
 export class Hommepage implements AfterViewInit {
   @ViewChild('userChartCanvas', { static: false }) userChartCanvas!: ElementRef<HTMLCanvasElement>;
