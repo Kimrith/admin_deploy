@@ -1,0 +1,192 @@
+<div class="p-4 sm:p-6 bg-gray-50">
+  <!-- ===== PAGE HEADER ===== -->
+  <header class="text-center mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-700 tracking-tight">🧩 Update Page</h1>
+    <p class="text-gray-600 mt-2">Manage your categories and products</p>
+  </header>
+
+  <!-- ===== CATEGORIES SECTION ===== -->
+  <section class="mb-16">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800">🗂️ Categories</h2>
+      <!-- Optional Add Button -->
+      <!-- <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium shadow-sm">+ Add Category</button> -->
+    </div>
+
+    <!-- Categories Grid -->
+    <div
+      class="sm:grid sm:grid-cols-2 md:grid-cols-4 gap-8 flex overflow-x-auto space-x-4 sm:space-x-0 sm:overflow-x-visible px-2"
+    >
+      <div
+        *ngFor="let category of categories; trackBy: trackByFn"
+        class="bg-white rounded-xl shadow hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col items-center p-4 text-center border border-gray-100"
+        role="article"
+        aria-label="Category: {{ category.name_category }}"
+      >
+        <!-- Thumbnail -->
+        <div class="relative overflow-hidden">
+          <img
+            [src]="category.thumbnail || 'assets/default-category.jpg'"
+            [alt]="category.name_category"
+            class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </div>
+
+        <!-- Category Content -->
+        <div class="p-2 text-center flex-1 flex flex-col">
+          <h3
+            class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-200"
+          >
+            {{ category.name_category }}
+          </h3>
+          <p class="text-sm text-gray-500 flex-1 py-1">
+            {{ category.products?.length || 0 }} products
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-2 w-full">
+          <button
+            (click)="editCategory(category._id)"
+            class="flex-1 px-2.5 py-3 mr-6 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+            aria-label="Edit category {{ category.name_category }}"
+          >
+            ✏️ Edit
+          </button>
+          <button
+            (click)="removeCategory(category._id)"
+            class="flex-1 px-2.5 py-1.5 mr-6 bg-red-500 hover:bg-red-600 text-white text-xs rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+            aria-label="Delete category {{ category.name_category }}"
+          >
+            🗑️ Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topup edit category -->
+  <!-- Edit Category Modal -->
+  <div *ngIf="topup" class="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 sm:w-[400px] relative animate-fadeIn">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">✏️ Edit Category</h2>
+
+      <label class="block text-sm font-medium text-gray-700 mb-1"> Category Name: </label>
+      <input
+        type="text"
+        [(ngModel)]="editedCategory.name_category"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+
+      <div class="text-center mb-4">
+        <img
+          [src]="previewUrl || 'assets/default-category.jpg'"
+          alt="Category Thumbnail"
+          class="w-full h-48 object-cover rounded-lg border mb-2"
+        />
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="text-sm" />
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button
+          (click)="saveCategory()"
+          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow-sm"
+        >
+          Save
+        </button>
+        <button
+          (click)="topup = false"
+          class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <section>
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800">🛒 Products</h2>
+      <!-- Optional Add Button -->
+      <!-- <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm font-medium shadow-sm">+ Add Product</button> -->
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div
+        *ngFor="let product of products(); trackBy: trackByFn"
+        class="bg-white rounded-xl shadow hover:shadow-md hover:-translate-y-1 transition-all duration-200 overflow-hidden flex flex-col border border-gray-100"
+        role="article"
+        aria-label="Product: {{ product.name_product }}"
+      >
+        <!-- Image -->
+        <div class="bg-gray-50 aspect-square w-full flex items-center justify-center">
+          <img
+            [src]="
+              product.img
+                ? product.img.startsWith('http')
+                  ? product.img
+                  : 'http://localhost:3000' + product.img
+                : 'assets/default-product.jpg'
+            "
+            [alt]="product.name_product"
+            class="w-full h-full object-contain p-2"
+            (error)="product.img = 'assets/default-product.jpg'"
+          />
+        </div>
+
+        <!-- Info -->
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="font-semibold text-gray-800 text-base mb-2 line-clamp-2 min-h-[3rem]">
+            {{ product.name_product }}
+          </h3>
+
+          <div class="text-gray-600 text-sm space-y-1 mb-4 flex-grow">
+            <p class="flex justify-between">
+              <span class="font-medium">ID:</span> <span>{{ product.product_id }}</span>
+            </p>
+            <p class="flex justify-between">
+              <span class="font-medium">Price:</span>
+              <span class="text-green-600 font-semibold">${{ product.price }}</span>
+            </p>
+            <p class="flex justify-between">
+              <span class="font-medium">Qty:</span> <span>{{ product.qty }}</span>
+            </p>
+            <p class="flex justify-between">
+              <span class="font-medium">Stock:</span>
+              <span
+                class="font-semibold {{ product.stock > 0 ? 'text-green-600' : 'text-red-500' }}"
+                >{{ product.stock }}</span
+              >
+            </p>
+            <p class="flex justify-between">
+              <span class="font-medium">Discount:</span>
+              <span class="text-orange-500">{{ product.discount }}%</span>
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-2 mt-auto">
+            <button
+              (click)="editProduct()"
+              class="flex-1 px-2.5 py-3 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+              aria-label="Edit product {{ product.name_product }}"
+            >
+              ✏️ Edit
+            </button>
+            <button
+              class="flex-1 px-2.5 py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+              aria-label="Delete product {{ product.name_product }}"
+            >
+              🗑️ Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
