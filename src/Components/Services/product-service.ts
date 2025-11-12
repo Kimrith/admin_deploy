@@ -59,4 +59,14 @@ export class ProductService {
   searchGeneric(searchTerm: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}?search=${encodeURIComponent(searchTerm)}`);
   }
+
+  // ✅ Create new product under a specific category
+  addProduct(categoryId: string, formData: FormData): Observable<any> {
+    // Assuming your backend route looks like POST /api/product/:categoryId
+    return this.http.post<any>(`${this.baseUrl}/${categoryId}`, formData);
+  }
+
+  deleteProduct(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  }
 }

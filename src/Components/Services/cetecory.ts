@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-interface CategoryItem {
+export interface CategoryItem {
   _id: string;
-  product_id: string;
   name_category: string;
   thumbnail: string;
-  __v: number;
   products: ProductItem[];
 }
 
-interface ProductItem {
+export interface ProductItem {
   _id: string;
-  product_id: string;
   name_product: string;
-  img: string;
   price: number;
   qty: number;
   stock: number;
@@ -23,7 +19,6 @@ interface ProductItem {
   discount: number;
   category: string;
   amount: number;
-  __v: number;
   date: string;
 }
 
@@ -31,22 +26,35 @@ interface ProductItem {
   providedIn: 'root',
 })
 export class CategoryService {
-  private baseUrl = 'http://localhost:3000/api/cetecory'; // ✅ Using your actual API endpoint: cetecory
-  private getCountUrl = 'http://localhost:3000/api/cetecory/count';
+  private baseUrl = 'http://localhost:3000/api/cetecory';
+  private getCountUrl = `${this.baseUrl}/count`;
+
   constructor(private http: HttpClient) {}
 
-  // Fetch all categories
-  getAllCategories(): Observable<any> {
-    return this.http.get<any>(this.baseUrl);
+  // ✅ Fetch all categories
+  getAllCategories(): Observable<CategoryItem[]> {
+    return this.http.get<CategoryItem[]>(this.baseUrl);
   }
 
-  // Get category by ID
+  // ✅ Get one category
   getCategoryById(categoryId: string): Observable<CategoryItem> {
-    return this.http.get<CategoryItem>(`${this.baseUrl}/${categoryId}`); // ✅ Using cetecory
+    return this.http.get<CategoryItem>(`${this.baseUrl}/${categoryId}`);
   }
 
-  // ✅ UPDATED: API returns a number directly, not an object
+  // ✅ Count categories
   getCategoryCount(): Observable<number> {
     return this.http.get<number>(this.getCountUrl);
+  }
+
+  addCategory(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.baseUrl, formData);
+  }
+
+  updateCategory(categoryId: string, formData: FormData): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${categoryId}`, formData);
+  }
+
+  deleteCategory(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
 }

@@ -122,24 +122,25 @@ export class Navbar implements OnInit {
     }
   }
 
-  // Update the filteredProducts getter to use searchQuery (for client-side filtering)
   get filteredProducts(): ProductItem[] {
-    let products = this.product_categories;
+    let products = this.product_categories || [];
 
     // Filter by category if selected
     if (this.selectedCategoryId) {
-      products = products.filter((product) => product.category === this.selectedCategoryId);
+      products = products.filter((product) => product?.category === this.selectedCategoryId);
     }
 
     // Filter by search query (client-side filtering - fallback)
     if (this.searchQuery && !this.isLoading) {
-      const term = this.searchQuery.toLowerCase();
-      products = products.filter(
-        (product) =>
-          product.name_product.toLowerCase().includes(term) ||
-          product.dis.toLowerCase().includes(term) ||
-          product.product_id.toLowerCase().includes(term)
-      );
+      const term = this.searchQuery?.toLowerCase() || '';
+
+      products = products.filter((product) => {
+        const name = product?.name_product?.toLowerCase() || '';
+        const dis = product?.dis?.toLowerCase() || '';
+        const id = product?.product_id?.toLowerCase() || '';
+
+        return name.includes(term) || dis.includes(term) || id.includes(term);
+      });
     }
 
     return products;

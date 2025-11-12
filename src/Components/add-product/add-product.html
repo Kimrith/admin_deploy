@@ -1,1 +1,180 @@
-<p>add-product works!</p>
+<h2 class="text-xl font-semibold mb-4">🛍️ Post Category</h2>
+
+<div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6 space-y-5 border border-gray-100">
+  <!-- Title -->
+  <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">🖼️ Add New Category</h2>
+
+  <!-- Input: Category Name -->
+  <div class="flex flex-col">
+    <label class="text-gray-700 font-medium mb-1">Category Name</label>
+    <input
+      type="text"
+      [(ngModel)]="categoryName"
+      placeholder="Enter category name..."
+      class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+    />
+  </div>
+
+  <!-- Input: Image Upload -->
+  <div class="flex flex-col">
+    <label class="text-gray-700 font-medium mb-1">Upload Thumbnail</label>
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      class="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
+
+  <!-- Preview -->
+  <div *ngIf="previewUrl" class="flex flex-col items-center gap-2 mt-3">
+    <span class="text-sm text-gray-500">Image Preview:</span>
+    <img
+      [src]="previewUrl"
+      alt="Preview"
+      class="w-40 h-40 object-cover rounded-xl border border-gray-200 shadow-md hover:scale-105 transition-transform"
+    />
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    (click)="onSubmit()"
+    class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold py-3 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-300"
+  >
+    🚀 Submit Category
+  </button>
+</div>
+
+<div class="mt-10">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">📂 The Categories</h2>
+
+  <div *ngIf="categories && categories.length > 0; else noCategories" class="flex flex-col gap-3">
+    <div
+      *ngFor="let category of categories"
+      class="flex items-center justify-between bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition p-3"
+    >
+      <!-- Category Info -->
+      <div class="flex items-center gap-3">
+        <img
+          [src]="category.thumbnail"
+          alt="{{ category.name_category }}"
+          class="w-14 h-14 object-cover rounded-lg border border-gray-300"
+        />
+        <div>
+          <h3 class="text-gray-800 font-semibold text-lg">
+            {{ category.name_category }}
+          </h3>
+          <p class="text-gray-500 text-sm">ID: {{ category._id }}</p>
+        </div>
+      </div>
+
+      <!-- Post Product Button -->
+      <button
+        (click)="PostProduct(category._id)"
+        class="bg-blue-600 text-white font-medium px-4 py-2 rounded-md hover:bg-blue-700 transition"
+      >
+        ➕ Post Product
+      </button>
+    </div>
+  </div>
+
+  <!-- No Categories State -->
+  <ng-template #noCategories>
+    <div
+      class="p-6 bg-gray-50 text-center text-gray-500 border border-dashed border-gray-300 rounded-lg"
+    >
+      🚫 No categories found. Please add one above.
+    </div>
+  </ng-template>
+</div>
+
+<!-- Product Popup -->
+<div
+  *ngIf="topUp"
+  class="fixed inset-0 flex items-center justify-center bg-opacity-40 backdrop-blur-sm z-50"
+>
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8 relative animate-fade-in">
+    <button
+      (click)="topUp = false"
+      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold"
+    >
+      ✖
+    </button>
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🛍️ Post New Product</h2>
+
+    <form (ngSubmit)="postproduct_catecories()" class="space-y-4">
+      <label for="">Product Name</label>
+      <input
+        type="text"
+        [(ngModel)]="product.name_product"
+        name="name_product"
+        placeholder="Enter product name..."
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+      />
+
+      <label for="">Product img</label>
+      <input
+        type="file"
+        (change)="onProductFileSelected($event)"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition cursor-pointer"
+      />
+
+      <div class="grid grid-cols-2 gap-4">
+        <label for="">Product Price</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.price"
+          name="price"
+          placeholder="Price"
+          class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+        <label for="">Product Quantity</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.qty"
+          name="qty"
+          placeholder="Quantity"
+          class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <label for="">Product Stock</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.stock"
+          name="stock"
+          placeholder="Stock"
+          class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+        <label for="">Product Discount</label>
+
+        <input
+          type="number"
+          [(ngModel)]="product.discount"
+          name="discount"
+          placeholder="Discount (%)"
+          class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+
+      <textarea
+        [(ngModel)]="product.dis"
+        name="dis"
+        placeholder="Enter product description..."
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition h-24"
+      ></textarea>
+
+      <button
+        type="submit"
+        class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold py-3 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-300"
+      >
+        🚀 Post Product
+      </button>
+    </form>
+  </div>
+</div>

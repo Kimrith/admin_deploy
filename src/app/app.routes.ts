@@ -8,6 +8,7 @@ import { RemoveProduct } from '../Components/remove-product/remove-product';
 import { Register } from '../Components/register/register';
 import { Login } from '../Components/login/login';
 import { Setting } from '../Components/setting/setting';
+import { User } from '../Components/user/user';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,10 @@ export const routes: Routes = [
       {
         path: 'login',
         component: Login,
+      },
+      {
+        path: 'user',
+        component: User,
       },
     ],
   },

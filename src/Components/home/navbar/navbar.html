@@ -230,7 +230,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <div *ngFor="let product of filteredProducts" class="bg-white rounded-lg shadow p-4">
             <img
-              [src]="product.img.trim()"
+              [src]="
+                product.img
+                  ? product.img.startsWith('http')
+                    ? product.img
+                    : 'http://localhost:3000' + product.img
+                  : 'assets/default-product.jpg'
+              "
               [alt]="product.name_product"
               class="w-full h-48 object-cover rounded-md mb-3"
               (error)="onImageError($event)"
@@ -264,7 +270,10 @@
           </div>
         </div>
 
-        <div *ngIf="filteredProducts.length === 0 && !isLoading" class="text-gray-500 text-center">
+        <div
+          *ngIf="filteredProducts.length === 0 && !isLoading"
+          class="text-gray-500 text-center p-12"
+        >
           No products found
         </div>
 

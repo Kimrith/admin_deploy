@@ -40,11 +40,12 @@ declare const Chart: any;
         <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
           <canvas #userChartCanvas class="flex-1 w-full"></canvas>
         </div>
-        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
-          <canvas #categoryChartCanvas class="flex-1 w-full"></canvas>
+        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex items-center justify-center">
+          <canvas #categoryChartCanvas class="max-w-[250px] max-h-[250px]"></canvas>
         </div>
-        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex flex-col">
-          <canvas #productChartCanvas class="flex-1 w-full"></canvas>
+
+        <div class="bg-white rounded-xl shadow-sm p-4 h-80 flex items-center justify-center">
+          <canvas #productChartCanvas class="max-w-[250px] max-h-[250px]"></canvas>
         </div>
       </div>
     </div>
