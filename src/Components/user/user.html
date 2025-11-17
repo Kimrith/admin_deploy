@@ -19,6 +19,7 @@
 
         <p class="font-semibold text-gray-800 text-lg">{{ user.name_user }}</p>
         <p class="text-sm text-gray-600">📧 {{ user.email }}</p>
+        <p class="text-sm text-red-600">🔒 {{ user.password }}</p>
         <p class="text-sm text-gray-600">📞 {{ user.phone_number }}</p>
         <p class="text-sm text-gray-600">🏠 {{ user.address }}</p>
         <p class="text-xs text-gray-400">🗓️ {{ user.date | date : 'medium' }}</p>

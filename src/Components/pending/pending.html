@@ -1,0 +1,77 @@
+<div
+  *ngFor="let order of orders"
+  class="bg-white p-5 rounded-xl shadow border border-gray-100 mb-4"
+>
+  <h3 class="text-lg font-semibold">Order #{{ order._id }}</h3>
+
+  <!-- Customer Information -->
+  <div class="mt-4 space-y-2 text-gray-700 text-sm">
+    <p><span class="font-semibold">Customer:</span> {{ order.customer_name }}</p>
+    <p><span class="font-semibold">Phone:</span> {{ order.customer_phone }}</p>
+    <p><span class="font-semibold">Address:</span> {{ order.customer_address }}</p>
+    <p><span class="font-semibold">Payment:</span> {{ order.payment_method }}</p>
+    <p><span class="font-semibold">Delivery Method:</span> {{ order.delivery_method }}</p>
+    <p><span class="font-semibold">Total Price:</span> ${{ getTotalPrice(order.products) }}</p>
+    <p><span class="font-semibold">Total Qty:</span> {{ getTotalQty(order.products) }}</p>
+    <p><span class="font-semibold">Date:</span> {{ order.order_date }}</p>
+  </div>
+
+  <!-- User Profile -->
+  <div class="mt-4">
+    <img [src]="order.user_id.profile_img" class="w-16 h-16 rounded-full border shadow" />
+  </div>
+
+  <!-- Product List -->
+  <div class="mt-4 border-t pt-4">
+    <h4 class="font-semibold text-gray-800 mb-2">Products:</h4>
+
+    <div
+      *ngFor="let p of order.products"
+      class="flex items-center gap-4 mb-4 p-3 bg-gray-50 rounded-lg"
+    >
+      <img
+        [src]="p.img?.startsWith('http') ? p.img : 'http://localhost:3000' + p.img"
+        (error)="p.img = '/assets/default.jpg'"
+        class="w-16 h-16 object-cover rounded-lg border"
+      />
+
+      <div>
+        <p class="font-semibold">{{ p.name_product }}</p>
+        <p class="text-gray-600 text-sm">
+          ${{ p.price }} × {{ p.qty }} (Discount: {{ p.discount }}%)
+        </p>
+        <p class="font-bold text-sm mt-1">Amount: ${{ p.amount | number : '1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <p class="mt-4 text-sm">
+    <span class="font-semibold">Status:</span>
+    <span class="text-yellow-600 font-bold">{{ order.status }}</span>
+  </p>
+
+  <!-- Buttons -->
+  <div class="mt-5 flex gap-3">
+    <button
+      class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg"
+      (click)="confirm(order._id)"
+    >
+      Confirm
+    </button>
+
+    <button
+      class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg"
+      (click)="cancel(order._id)"
+    >
+      Cancel
+    </button>
+
+    <button
+      class="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg"
+      (click)="remove(order._id)"
+    >
+      Remove
+    </button>
+  </div>
+</div>

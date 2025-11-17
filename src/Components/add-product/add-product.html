@@ -104,6 +104,15 @@
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🛍️ Post New Product</h2>
 
     <form (ngSubmit)="postproduct_catecories()" class="space-y-4">
+      <label for="">Product ID</label>
+      <input
+        type="text"
+        [(ngModel)]="product.product_id"
+        name="product_id"
+        placeholder="Enter product ID..."
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition"
+      />
+
       <label for="">Product Name</label>
       <input
         type="text"

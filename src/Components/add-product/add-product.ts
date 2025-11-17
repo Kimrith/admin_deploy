@@ -24,6 +24,7 @@ export class AddProduct implements OnInit {
 
   // 🧩 Product form model
   product = {
+    product_id: '',
     name_product: '',
     price: 0,
     qty: 0,
@@ -125,6 +126,7 @@ export class AddProduct implements OnInit {
 
     const formData = new FormData();
     formData.append('name_product', this.product.name_product);
+    formData.append('product_id', this.product.product_id);
     formData.append('price', this.product.price.toString());
     formData.append('qty', this.product.qty.toString());
     formData.append('stock', this.product.stock.toString());
@@ -138,6 +140,7 @@ export class AddProduct implements OnInit {
         alert('✅ Product created successfully!');
         this.topUp = false;
         this.product = {
+          product_id: '',
           name_product: '',
           price: 0,
           qty: 0,

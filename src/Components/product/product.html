@@ -38,7 +38,7 @@
       <!-- Action Buttons -->
       <div class="flex justify-center gap-2 p-5">
         <button
-          (click)="editCategory(list_catecory)"
+          (click)="editCategory(list_catecory._id)"
           class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-sm hover:shadow-md flex items-center gap-2"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +52,7 @@
           Edit
         </button>
         <button
-          (click)="removeCategory(list_catecory)"
+          (click)="removeCategory(list_catecory._id)"
           class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-sm hover:shadow-md flex items-center gap-2"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@
         <p>Category ID: {{ product.category }}</p>
         <div class="flex text-base justify-center gap-2 mt-5">
           <button
-            (click)="editProduct(product)"
+            (click)="editProduct(product._id)"
             class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-sm hover:shadow-md flex items-center gap-2"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@
             Edit
           </button>
           <button
-            (click)="deleteProduct(product)"
+            (click)="deleteProduct(product._id)"
             class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-sm hover:shadow-md flex items-center gap-2"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,5 +174,112 @@
   <!-- No products message -->
   <div *ngIf="!isLoading && product_categories.length === 0" class="text-center py-8 text-gray-500">
     <p>No products found.</p>
+  </div>
+</div>
+
+<div *ngIf="topup" class="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 sm:w-[400px] relative animate-fadeIn">
+    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">✏️ Edit Category</h2>
+
+    <label class="block text-sm font-medium text-gray-700 mb-1"> Category Name: </label>
+    <input
+      type="text"
+      [(ngModel)]="editedCategory.name_category"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+
+    <div class="text-center mb-4">
+      <img
+        [src]="previewUrl || 'assets/default-category.jpg'"
+        alt="Category Thumbnail"
+        class="w-full h-48 object-cover rounded-lg border mb-2"
+      />
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="text-sm" />
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <button
+        (click)="saveCategory()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow-sm"
+      >
+        Save
+      </button>
+      <button
+        (click)="topup = false"
+        class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Edit Product Modal -->
+<div
+  *ngIf="editProductModal"
+  class="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
+>
+  <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 sm:w-[400px] relative animate-fadeIn">
+    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">✏️ Edit Product</h2>
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">Product ID:</label>
+    <input
+      type="text"
+      [(ngModel)]="editedProduct.product_id"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    /><label class="block text-sm font-medium text-gray-700 mb-1">Product Name:</label>
+    <input
+      type="text"
+      [(ngModel)]="editedProduct.name_product"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+
+    <label class="block text-sm font-medium text-gray-700 mb-1">Price:</label>
+    <input
+      type="number"
+      [(ngModel)]="editedProduct.price"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+    <label class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
+    <input
+      type="text"
+      [(ngModel)]="editedProduct.dis"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+    <label class="block text-sm font-medium text-gray-700 mb-1">Stock:</label>
+    <input
+      type="number"
+      [(ngModel)]="editedProduct.stock"
+      class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+
+    <div class="text-center mb-4">
+      <img
+        [src]="productPreviewUrl || 'assets/default-product.jpg'"
+        alt="Product Image"
+        class="w-full h-48 object-cover rounded-lg border mb-2"
+      />
+      <input
+        type="file"
+        (change)="onProductFileSelected($event)"
+        accept="image/*"
+        class="text-sm"
+      />
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <button
+        (click)="saveProduct()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow-sm"
+      >
+        Save
+      </button>
+      <button
+        (click)="editProductModal = false"
+        class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+      >
+        Cancel
+      </button>
+    </div>
   </div>
 </div>

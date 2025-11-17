@@ -9,6 +9,7 @@ import { Register } from '../Components/register/register';
 import { Login } from '../Components/login/login';
 import { Setting } from '../Components/setting/setting';
 import { User } from '../Components/user/user';
+import { Pending } from '../Components/pending/pending';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,10 @@ export const routes: Routes = [
       {
         path: 'user',
         component: User,
+      },
+      {
+        path: 'pending',
+        component: Pending,
       },
     ],
   },

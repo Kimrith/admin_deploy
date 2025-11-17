@@ -66,6 +66,10 @@ export class ProductService {
     return this.http.post<any>(`${this.baseUrl}/${categoryId}`, formData);
   }
 
+  updateProduct(id: string, formData: FormData): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${id}`, formData);
+  }
+
   deleteProduct(id: string): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
