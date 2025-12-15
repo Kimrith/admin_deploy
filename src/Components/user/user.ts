@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UserService, UserItem } from '../Services/userservice';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIf, FormsModule],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
 export class User implements OnInit {
   users: UserItem[] = [];
+  editPopup = false;
+
+  // ✅ Editing model
+  editUserData: Partial<UserItem> = {};
 
   constructor(private userService: UserService) {}
 
@@ -20,16 +25,47 @@ export class User implements OnInit {
 
   loadUsers() {
     this.userService.getAllUsers().subscribe({
-      next: (data) => {
-        this.users = data;
-      },
+      next: (data) => (this.users = data),
       error: (err) => console.error('❌ Failed to fetch users:', err),
     });
   }
 
-  editUser(id: string) {
-    // Implement user edit functionality here
-    alert(`Edit user with ID: ${id}`);
+  // ✅ OPEN POPUP WITH DATA
+  editUser(user: UserItem) {
+    this.editUserData = {
+      ...user,
+      date: user.date ? new Date(user.date).toLocaleDateString() : '',
+    };
+
+    this.editPopup = true;
+  }
+
+  // ✅ CLOSE POPUP
+  closeEdit() {
+    this.editPopup = false;
+    this.editUserData = {};
+  }
+
+  // ✅ UPDATE USER (NO PASSWORD)
+  updateUser() {
+    if (!this.editUserData._id) return;
+
+    const payload = {
+      name_user: this.editUserData.name_user,
+      email: this.editUserData.email,
+      phone_number: this.editUserData.phone_number,
+      address: this.editUserData.address,
+      profile_img: this.editUserData.profile_img,
+    };
+
+    this.userService.updateUser(this.editUserData._id, payload).subscribe({
+      next: () => {
+        alert('✅ User updated successfully');
+        this.loadUsers();
+        this.closeEdit();
+      },
+      error: (err) => console.error('❌ Update failed:', err),
+    });
   }
 
   removeUser(id: string) {

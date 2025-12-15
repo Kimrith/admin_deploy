@@ -31,4 +31,12 @@ export class UserService {
   deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
+
+  // updateUser(id: string): Observable<any> {
+  //   return this.http.put(`${this.baseUrl}/cancel/${id}`, {});
+  // }
+
+  updateUser(id: string, data: Partial<UserItem>): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, data);
+  }
 }

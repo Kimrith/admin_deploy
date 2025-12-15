@@ -47,14 +47,17 @@ export class AddProduct implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (file.size > 1000000) {
-      alert('⚠️ File is too large. Please upload an image under 1MB.');
+    const maxSize = 50 * 1024 * 1024; // 2MB = 2,097,152 bytes
+
+    if (file.size > maxSize) {
+      alert('⚠️ File is too large. Please upload an image under 50MB.');
       this.selectedFile = null;
       this.previewUrl = null;
       return;
     }
 
     this.selectedFile = file;
+
     const reader = new FileReader();
     reader.onload = () => (this.previewUrl = reader.result);
     reader.readAsDataURL(file);
