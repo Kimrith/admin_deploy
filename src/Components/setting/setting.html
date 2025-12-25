@@ -1,1 +1,114 @@
-<p>setting works!</p>
+<div class="max-w-xl mx-auto p-8 bg-white rounded-3xl shadow-xl">
+  <!-- Header -->
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Admin</h2>
+
+  <!-- Avatar Section (LEFT ALIGNED) -->
+  <div class="flex items-center gap-6 mb-6">
+    <!-- Avatar -->
+    <div class="shrink-0">
+      <img
+        *ngIf="imagePreview; else avatar"
+        [src]="imagePreview"
+        class="w-24 h-24 rounded-full object-cover ring-2 ring-indigo-200"
+      />
+
+      <ng-template #avatar>
+        <img
+          src="assets/avatar.png"
+          class="w-24 h-24 rounded-full object-cover ring-2 ring-indigo-200"
+        />
+      </ng-template>
+    </div>
+
+    <!-- Upload -->
+    <div class="flex flex-col gap-2">
+      <label
+        class="inline-block px-5 py-2 rounded-full bg-indigo-100 text-indigo-600 font-medium cursor-pointer hover:bg-indigo-200 transition"
+      >
+        Choose File
+        <input type="file" accept="image/*" (change)="onImageSelect($event)" class="hidden" />
+      </label>
+
+      <span class="text-sm text-slate-400">PNG or JPG (max 5MB)</span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="profileForm" class="space-y-4">
+    <!-- Name -->
+    <input
+      formControlName="name"
+      type="text"
+      placeholder="Name"
+      class="w-full px-4 py-3 rounded-2xl bg-slate-100 text-slate-800 placeholder-slate-400 shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition"
+    />
+
+    <!-- Email -->
+    <input
+      formControlName="email"
+      type="email"
+      placeholder="Email"
+      class="w-full px-4 py-3 rounded-2xl bg-slate-100 text-slate-800 placeholder-slate-400 shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition"
+    />
+
+    <!-- Password -->
+    <input
+      formControlName="password"
+      type="password"
+      placeholder="New Password (optional)"
+      autocomplete="new-password"
+      class="w-full px-4 py-3 rounded-2xl bg-slate-100 text-slate-800 placeholder-slate-400 shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition"
+    />
+
+    <!-- Phone -->
+    <input
+      formControlName="phone"
+      type="text"
+      placeholder="Phone number"
+      class="w-full px-4 py-3 rounded-2xl bg-slate-100 text-slate-800 placeholder-slate-400 shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition"
+    />
+
+    <!-- Save -->
+    <button
+      type="button"
+      (click)="openConfirm()"
+      [disabled]="profileForm.invalid || isSubmitting"
+      class="w-full mt-4 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+    >
+      Save Changes
+    </button>
+  </form>
+</div>
+
+<!-- CONFIRM PASSWORD MODAL -->
+<div *ngIf="showConfirm" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl space-y-4">
+    <h3 class="text-lg font-semibold text-slate-800">Confirm Password</h3>
+
+    <input
+      type="password"
+      [(ngModel)]="confirmPassword"
+      autocomplete="current-password"
+      placeholder="Enter your password"
+      class="w-full px-4 py-3 rounded-2xl bg-slate-100 text-slate-800 placeholder-slate-400 shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition"
+    />
+
+    <div class="flex justify-end gap-3 pt-2">
+      <button
+        type="button"
+        (click)="closeConfirm()"
+        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 transition"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        (click)="confirmAndSubmit()"
+        class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>

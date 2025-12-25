@@ -10,6 +10,7 @@ import { Login } from '../Components/login/login';
 import { Setting } from '../Components/setting/setting';
 import { User } from '../Components/user/user';
 import { Pending } from '../Components/pending/pending';
+import { AuthGuard } from './Components/service/auth.guard';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Home,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
@@ -46,14 +48,6 @@ export const routes: Routes = [
         component: Setting,
       },
       {
-        path: 'register',
-        component: Register,
-      },
-      {
-        path: 'login',
-        component: Login,
-      },
-      {
         path: 'user',
         component: User,
       },
@@ -62,5 +56,15 @@ export const routes: Routes = [
         component: Pending,
       },
     ],
+  },
+
+  // protect route direct to register first
+  {
+    path: 'login',
+    component: Login,
+  },
+  {
+    path: 'register',
+    component: Register,
   },
 ];

@@ -1,10 +1,12 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { ProductService } from '../../Services/product-service';
 import { CategoryService } from '../../Services/cetecory';
+
+import { Auth } from '../../../app/Components/Auth/auth';
 
 interface ProductItem {
   _id: string;
@@ -67,7 +69,12 @@ export class Navbar implements OnInit {
   };
   productPreviewUrl: string | null = null;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) {}
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private auth: Auth,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.product_categories = [];
@@ -256,5 +263,11 @@ export class Navbar implements OnInit {
         error: (err) => console.error('❌ Failed to delete product:', err),
       });
     }
+  }
+
+  authToken() {
+    this.auth.logout();
+
+    this.router.navigate(['/login']);
   }
 }
