@@ -1,114 +1,76 @@
-<footer class="bg-gray-800 text-gray-300 py-10 max-sm:w-full">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <!-- Brand / About -->
-      <div>
-        <h2 class="text-2xl font-bold text-white mb-4">Admin Dashboard</h2>
-        <p class="text-gray-400 leading-relaxed">
-          Manage your products, users, and settings easily with our powerful admin system.
-        </p>
-      </div>
+<footer class="bg-gray-800 text-gray-300 pt-12">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <!-- BRAND -->
+    <div>
+      <h2 class="text-2xl font-bold text-white mb-3">Admin Dashboard</h2>
+      <p class="text-sm text-gray-400 leading-relaxed">
+        Manage products, users, and system settings with a secure and powerful admin dashboard.
+      </p>
+    </div>
 
-      <!-- Quick Links -->
-      <div>
-        <h3 class="text-white font-semibold mb-3">Quick Links</h3>
-        <ul class="space-y-2">
-          <li>
-            <a
-              routerLink="/"
-              routerLinkActive="text-blue-400"
-              class="hover:text-blue-400 transition-colors duration-200 block"
-              aria-label="Go to Home"
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              routerLink="/products"
-              routerLinkActive="text-blue-400"
-              class="hover:text-blue-400 transition-colors duration-200 block"
-              aria-label="View all products"
-            >
-              All Products
-            </a>
-          </li>
-          <li>
-            <a
-              routerLink="/users"
-              routerLinkActive="text-blue-400"
-              class="hover:text-blue-400 transition-colors duration-200 block"
-              aria-label="Manage users"
-            >
-              Users
-            </a>
-          </li>
-          <li>
-            <a
-              routerLink="/settings"
-              routerLinkActive="text-blue-400"
-              class="hover:text-blue-400 transition-colors duration-200 block"
-              aria-label="Access settings"
-            >
-              Settings
-            </a>
-          </li>
-        </ul>
-      </div>
+    <!-- QUICK LINKS -->
+    <div>
+      <h3 class="text-white font-semibold mb-3">Quick Links</h3>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a routerLink="/" class="hover:text-blue-400 transition">Home</a>
+        </li>
+        <li>
+          <a routerLink="/product" class="hover:text-blue-400 transition"> Products </a>
+        </li>
+        <li>
+          <a routerLink="/user" class="hover:text-blue-400 transition"> Users </a>
+        </li>
+        <li>
+          <a routerLink="/setting" class="hover:text-blue-400 transition"> Settings </a>
+        </li>
+      </ul>
+    </div>
 
-      <!-- Social Links -->
-      <div>
-        <h3 class="text-white font-semibold mb-3">Follow Us</h3>
-        <div class="flex space-x-4">
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            class="hover:text-blue-400 transition-colors duration-200"
-          >
-            <span class="sr-only">Facebook</span>
-            <i class="fab fa-facebook-f text-2xl"></i>
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            class="hover:text-blue-400 transition-colors duration-200"
-          >
-            <span class="sr-only">Twitter</span>
-            <i class="fab fa-twitter text-2xl"></i>
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            class="hover:text-blue-400 transition-colors duration-200"
-          >
-            <span class="sr-only">Instagram</span>
-            <i class="fab fa-instagram text-2xl"></i>
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            class="hover:text-blue-400 transition-colors duration-200"
-          >
-            <span class="sr-only">LinkedIn</span>
-            <i class="fab fa-linkedin-in text-2xl"></i>
-          </a>
-        </div>
-      </div>
+    <!-- FOLLOW US (FIXED ICONS) -->
+    <div class="flex flex-col gap-2">
+      <h3 class="text-white font-semibold mb-2">Follow Us</h3>
+
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        class="flex items-center gap-2 text-gray-400 hover:text-blue-500 transition"
+      >
+        <i class="fab fa-facebook-f w-4"></i>
+        <span>Facebook</span>
+      </a>
+
+      <a
+        href="https://twitter.com"
+        target="_blank"
+        class="flex items-center gap-2 text-gray-400 hover:text-sky-400 transition"
+      >
+        <i class="fab fa-twitter w-4"></i>
+        <span>Twitter</span>
+      </a>
+
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        class="flex items-center gap-2 text-gray-400 hover:text-pink-500 transition"
+      >
+        <i class="fab fa-instagram w-4"></i>
+        <span>Instagram</span>
+      </a>
+
+      <a
+        href="https://linkedin.com"
+        target="_blank"
+        class="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition"
+      >
+        <i class="fab fa-linkedin-in w-4"></i>
+        <span>LinkedIn</span>
+      </a>
     </div>
   </div>
 
-  <!-- Bottom Section -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-gray-700">
-    <div class="text-center text-sm text-gray-500">
-      &copy; {{ currentYear }} Admin Dashboard. All rights reserved.
-    </div>
+  <!-- BOTTOM BAR -->
+  <div class="mt-10 border-t border-gray-700 py-4 text-center text-sm text-gray-500">
+    © {{ currentYear }} Admin Dashboard. All rights reserved.
   </div>
 </footer>
